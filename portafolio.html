@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jose David Osorio - Desarrollador de Software</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00ff9d;
+            --bg-dark: #0a192f;
+            --bg-card: #112240;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(10, 25, 47, 0.95);
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+
+        .profile-img i {
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+
+        nav {
+            background-color: var(--bg-card);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            background-color: rgba(0, 255, 157, 0.1);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .timeline-item {
+            padding: 2rem;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .cert-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        [data-animation] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        [data-animation].animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--primary-color);
+            animation: typing 3.5s steps(40, end),
+                       blink-caret .75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color) }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile-img">
+            <i class="fas fa-user-code"></i>
+        </div>
+        <h1>Jose David Osorio Gallego</h1>
+        <p class="typing-effect">{ Desarrollador de Software}</p>
+    </header>
+    </section>
+
+    <nav>
+        <ul>
+            <li><a href="#sobre-mi">Sobre Mí</a></li>
+            <li><a href="#experiencia">Experiencia</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#habilidades">Habilidades</a></li>
+            <li><a href="#certificaciones">Certificaciones</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="sobre-mi" data-animation>
+            <h2>// Sobre Mí</h2>
+            <p>Soy un desarrollador apasionado por crear soluciones innovadoras. Me especializo en Python y desarrollo de aplicaciones web. Mi objetivo es crear software que marque la diferencia y resuelva problemas reales.</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Líneas de Código</h3>
+                    <p>1.000+</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3>Proyectos</h3>
+                    <p>3</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Años de Experiencia</h3>
+                    <p>2</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencia" data-animation>
+            <h2>// Experiencia</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Desarrollador Python</h3>
+                    <div class="date">2023 - Presente</div>
+                    <p>Desarrollo de soluciones empresariales utilizando Python y sus frameworks.</p>
+                </div>
+                
+            </div>
+        </section>
+        <section id="educacion" data-animation>
+            <h2>// Educación</h2>
+            <div class="education">
+                <div class="education-item">
+                    <h3>ingenieria en Desarrollo de Software</h3>
+                    <p><strong>Institución:</strong> Universidad Digital de Antioquia</p>
+                    <p><strong>Ciudad:</strong> Medellín, Antioquia</p>
+                    <p><strong>Fecha:</strong> Actualidad</p>
+                </div>
+        
+            <style>
+                .education {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 2rem;
+                    margin-top: 2rem;
+                }
+        
+                .education-item {
+                    background-color: var(--bg-card);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid rgba(0, 255, 157, 0.1);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+        
+                .education-item:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                }
+        
+                .education-item h3 {
+                    color: var(--primary-color);
+                    margin-bottom: 0.5rem;
+                }
+        
+                .education-item p {
+                    color: var(--text-secondary);
+                    margin: 0.3rem 0;
+                }
+            </style>
+        </section>
+        <section id="cursos" data-animation>
+            <h2>// Cursos Relevantes</h2>
+            <div class="cursos">
+                <div class="curso-item">
+                    <h3>Curso de Fundamentos de Python</h3>
+                    <p><strong>Institución:</strong> Platzi</p>
+                    <p><strong>Fecha:</strong> 9 de febrero del 2024</p>
+                </div>
+                <div class="curso-item">
+                    <h3>Curso de Introducción a Java</h3>
+                    <p><strong>Institución:</strong> Platzi</p>
+                    <p><strong>Fecha:</strong> 24 de abril del 2024</p>
+                </div>
+                <div class="curso-item">
+                    <h3>Curso de Pensamiento Lógico: Lenguajes de Programación</h3>
+                    <p><strong>Institución:</strong> Platzi</p>
+                    <p><strong>Fecha:</strong> 29 de julio del 2024</p>
+                </div>
+                <div class="curso-item">
+                    <h3>Curso de Pensamiento Lógico: Manejo de Datos, Estructuras y Funciones</h3>
+                    <p><strong>Institución:</strong> Platzi</p>
+                    <p><strong>Fecha:</strong> 29 de julio del 2024</p>
+                </div>
+                <div class="curso-item">
+                    <h3>Curso de PYTHON</h3>
+                    <p><strong>Institución:</strong> Platzi</p>
+                    <p><strong>Fecha:</strong> 31 de julio del 2024</p>
+                </div>
+                <div class="curso-item">
+                    <h3>Curso de Fundamentos de la Codificación I y II</h3>
+                    <p><strong>Institución:</strong> Grasshopper</p>
+                    <p><strong>Fecha:</strong> noviembre 2022</p>
+                </div>
+            </div>
+        
+            <style>
+                .cursos {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 2rem;
+                    margin-top: 2rem;
+                }
+        
+                .curso-item {
+                    background-color: var(--bg-card);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid rgba(0, 255, 157, 0.1);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+        
+                .curso-item:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                }
+        
+                .curso-item h3 {
+                    color: var(--primary-color);
+                    margin-bottom: 0.5rem;
+                }
+        
+                .curso-item p {
+                    color: var(--text-secondary);
+                    margin: 0.3rem 0;
+                }
+            </style>
+        </section>
+
+        <section id="proyectos" data-animation>
+            <h2>// Proyectos</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <h3>Sistema Bar "Vieja Guardia"</h3>
+                    <p>Sistema de gestión completo para bares que incluye:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Control de mesas y pedidos</li>
+                        <li>Facturación electrónica</li>
+                        <li>Generación de reportes PDF</li>
+                        <li>Interfaz gráfica intuitiva</li>
+                    </ul>
+                    <div class="skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Tkinter</span>
+                        <span class="skill-tag">ReportLab</span>
+                        <span class="skill-tag">PyPDF2</span>
+                        <span class="skill-tag">json</span>
+                    </div>
+                    <a href="https://github.com/josedavidosorio2005/sistema-bar-premium-.git" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> Ver Proyecto →
+                    </a>
+                </div>
+        
+                <div class="project-card">
+                    <h3>Aplicación de Tareas</h3>
+                    <p>Una aplicación web para gestionar tareas diarias:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Agregar, editar y eliminar tareas</li>
+                        <li>Interfaz amigable y responsiva</li>
+                        <li>Integración con API REST</li>
+                    </ul>
+                    <div class="skills">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">Node.js</span>
+                    </div>
+                    <a href="https://github.com/josedavidosorio2005/aplicacion-tareas.git" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> Ver Proyecto →
+                    </a>
+                </div>
+        
+                <div class="project-card">
+                    <h3>Portfolio Personal</h3>
+                    <p>Un portafolio para mostrar mis proyectos y habilidades:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Diseño responsivo</li>
+                        <li>Animaciones y efectos visuales</li>
+                        <li>Sección de contacto y redes sociales</li>
+                    </ul>
+                    <div class="skills">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                    <a href="https://github.com/josedavidosorio2005/portfolio.git" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> Ver Proyecto →
+                    </a>
+                </div>
+            </div>
+            
+            <style>
+                .projects {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 2rem;
+                    margin-top: 2rem;
+                }
+        
+                .project-card {
+                    background-color: var(--bg-card);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    text-align: left;
+                    border: 1px solid rgba(0, 255, 157, 0.1);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+        
+                .project-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                }
+        
+                .project-card h3 {
+                    color: var(--primary-color);
+                    margin-bottom: 0.5rem;
+                }
+        
+                .skill-tag {
+                    background-color: rgba(0, 255, 157, 0.1);
+                    color: var(--primary-color);
+                    padding: 0.3rem 0.5rem;
+                    border-radius: 4px;
+                    margin-right: 0.5rem;
+                    font-size: 0.9rem;
+                }
+        
+                .project-link {
+                    display: inline-block;
+                    margin-top: 1rem;
+                    color: var(--primary-color);
+                    text-decoration: none;
+                    font-weight: bold;
+                    transition: color 0.3s ease;
+                }
+        
+                .project-link:hover {
+                    color: rgba(0, 255, 157, 0.8);
+                }
+            </style>
+        </section>
+
+        <section id="habilidades" data-animation>
+            <h2>// Habilidades Técnicas</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Lenguajes de Programación</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Python</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>HTML/CSS</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>SQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificaciones" data-animation>
+            <h2>// Certificaciones</h2>
+            <div class="certifications">
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Python Developer</h3>
+                    <p>Platzi - 2023</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact" data-animation>
+            <h2>// Contacto</h2>
+            <p><a href="https://github.com/josedavidosorio2005" target="_blank">
+                <i class="fab fa-github"></i> github.com/josedavidosorio2005
+            </a></p>
+            <p><i class="fas fa-phone"></i> +57 3506072527</p>
+            
+        </section>
+    </div>
+
+    <script>
+        // Desplazamiento suave
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-animation]').forEach((element) => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
